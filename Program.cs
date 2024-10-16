@@ -143,6 +143,88 @@ namespace Starter
 
           while (anotherPet == "y" && petCount < maxPets)
           {
+            bool validEntry = false;
+
+            // set animal species
+            do
+            {
+              Console.WriteLine("\n\rEnter 'dog' or 'cat' to begin a new entry");
+              readResult = Console.ReadLine();
+
+              if (readResult != null)
+              {
+                animalSpecies = readResult.ToLower();
+
+                if (animalSpecies != "dog" && animalSpecies != "cat")
+                  validEntry = false;
+                else
+                  validEntry = true;
+              }
+            } while (validEntry == false);
+
+            // build the animal the ID number - for example C1, C2, D3 (for Cat 1, Cat 2, Dog 3)
+            animalID = animalSpecies.Substring(0, 1) + (petCount + 1).ToString();
+
+            // get the pet's age. can be ? at initial entry. 
+            do
+            {
+              int petAge;
+              Console.WriteLine("Enter the pet's age or enter ? if unknown");
+              readResult = Console.ReadLine();
+
+              if (readResult != null)
+              {
+                animalAge = readResult;
+                if (animalAge != "?")
+                {
+                  validEntry = int.TryParse(animalAge, out petAge);
+                }
+                else
+                {
+                  validEntry = true;
+                }
+              }
+            } while (validEntry == false);
+
+            // get pets description
+            do
+            {
+              Console.WriteLine("Enter a physical description of the pet (size, color, gender, weight, housebroken)");
+              readResult = Console.ReadLine();
+
+              if (readResult != null)
+              {
+                animalPhysicalDescription = readResult.ToLower();
+
+                if (animalPhysicalDescription == "")
+                  animalPhysicalDescription = "tbd";
+              }
+
+            } while (animalPhysicalDescription == "");
+
+            // add pets nickname
+            do
+            {
+              Console.WriteLine("Enter a nickname for the pet");
+              readResult = Console.ReadLine();
+
+              if (readResult != null)
+              {
+                animalNickname = readResult.ToLower();
+                if (animalNickname == "")
+                  animalNickname = "tbd";
+              }
+
+            } while (animalNickname == "");
+
+            // store the pet information in the ourAnimals array (zero based)
+            ourAnimals[petCount, 0] = "ID #: " + animalID;
+            ourAnimals[petCount, 1] = "Species: " + animalSpecies;
+            ourAnimals[petCount, 2] = "Age: " + animalAge;
+            ourAnimals[petCount, 3] = "Nickname: " + animalNickname;
+            ourAnimals[petCount, 4] = "Physical description: " + animalPhysicalDescription;
+            ourAnimals[petCount, 5] = "Personality: " + animalPersonalityDescription;
+
             petCount++;
             if (petCount < maxPets)
             {
